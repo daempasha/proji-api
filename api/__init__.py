@@ -26,4 +26,8 @@ def create_app():
     def hello():
         return "Hello world"
 
+    @app.route("/api/test")
+    def apitest():
+        return "Test API"
+
     return app
