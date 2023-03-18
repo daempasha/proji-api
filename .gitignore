@@ -1,0 +1,8 @@
+# Folders
+.venv
+api.egg-info
+__pycache__
+
+# Files
+.env
+**/*.pyc
