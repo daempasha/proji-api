@@ -5,9 +5,9 @@ name = "pypi"
 
 [packages]
 flask = "*"
-pylint = "*"
 black = "*"
 python-dotenv = "*"
+pylint = "*"
 
 [dev-packages]
 
