@@ -22,4 +22,8 @@ def create_app():
 
     app.config.from_object(config)
 
+    @app.route("/")
+    def hello():
+        return "Hello world"
+
     return app
