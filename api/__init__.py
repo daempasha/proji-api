@@ -2,6 +2,9 @@
 
 import os
 from flask import Flask
+from flask_cors import CORS
+
+cors = CORS()
 
 
 def create_app():
@@ -21,6 +24,7 @@ def create_app():
         config = "api.config.Production"
 
     app.config.from_object(config)
+    cors.init_app(app)
 
     @app.route("/")
     def hello():
@@ -28,6 +32,6 @@ def create_app():
 
     @app.route("/api/test")
     def apitest():
-        return "Test API"
+        return {"data": "Test API"}
 
     return app
