@@ -24,7 +24,7 @@ def create_app():
         config = "api.config.Production"
 
     app.config.from_object(config)
-    cors.init_app(app)
+    cors.init_app(app, origins=[app.config["FRONTEND_HOST"]])
 
     @app.route("/")
     def hello():
