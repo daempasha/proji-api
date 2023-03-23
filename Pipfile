@@ -10,6 +10,7 @@ python-dotenv = "*"
 pylint = "*"
 flask-cors = "*"
 pytest = "*"
+authlib = "*"
 
 [dev-packages]
 
