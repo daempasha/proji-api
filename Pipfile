@@ -11,6 +11,7 @@ pylint = "*"
 flask-cors = "*"
 pytest = "*"
 authlib = "*"
+requests = "*"
 
 [dev-packages]
 

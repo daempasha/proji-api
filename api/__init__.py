@@ -2,9 +2,12 @@
 
 import os
 from flask import Flask, jsonify
+
 from flask_cors import CORS
+from api.error_handlers.exceptions import ValidationError
 
 from .auth import require_auth
+from .error_handlers import register_error_handlers
 
 cors = CORS()
 
@@ -27,6 +30,8 @@ def create_app():
 
     app.config.from_object(config)
     cors.init_app(app, resources={r"/api/*": {"origins": app.config["FRONTEND_HOST"]}})
+
+    register_error_handlers(app)
 
     @app.route("/")
     def hello():
