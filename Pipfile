@@ -12,6 +12,11 @@ flask-cors = "*"
 pytest = "*"
 authlib = "*"
 requests = "*"
+sqlalchemy = "*"
+flask-sqlalchemy = "*"
+psycopg2 = "*"
+alembic = "*"
+flask-migrate = "*"
 
 [dev-packages]
 
