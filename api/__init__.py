@@ -8,6 +8,7 @@ from api.error_handlers.exceptions import ValidationError
 
 from .auth import require_auth
 from .error_handlers import register_error_handlers
+from .utils import get_config_path
 
 cors = CORS()
 
@@ -18,15 +19,7 @@ def create_app():
     """
     app = Flask(__name__)
 
-    debug = app.config["DEBUG"]
-    testing = os.environ.get("TESTING", default="0") == "1"
-
-    if testing:
-        config = "api.config.Testing"
-    elif debug:
-        config = "api.config.Development"
-    else:
-        config = "api.config.Production"
+    config = get_config_path(app)
 
     app.config.from_object(config)
     cors.init_app(app, resources={r"/api/*": {"origins": app.config["FRONTEND_HOST"]}})

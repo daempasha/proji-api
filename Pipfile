@@ -12,6 +12,7 @@ flask-cors = "*"
 pytest = "*"
 authlib = "*"
 requests = "*"
+pytest-dotenv = "*"
 
 [dev-packages]
 
