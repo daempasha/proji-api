@@ -6,4 +6,4 @@ class Base:
 
     FRONTEND_HOST = "http://localhost:5173"
     AUTH0_API_KEY = "API_KEY"
-    DEBUG = 0
+    DEBUG = False
