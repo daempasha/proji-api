@@ -4,6 +4,9 @@ import os
 from flask import Flask, jsonify
 
 from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+
 from api.error_handlers.exceptions import ValidationError
 
 from .auth import require_auth
@@ -11,6 +14,8 @@ from .error_handlers import register_error_handlers
 from .utils import get_config_path
 
 cors = CORS()
+database = SQLAlchemy()
+migrate = Migrate()
 
 
 def create_app():
@@ -22,7 +27,14 @@ def create_app():
     config = get_config_path(app)
 
     app.config.from_object(config)
+
+    database.init_app(app)
+    migrate.init_app(app, database)
     cors.init_app(app, resources={r"/api/*": {"origins": app.config["FRONTEND_HOST"]}})
+
+    class User(database.Model):
+        id = database.Column(database.Integer, primary_key=True)
+        name = database.Column(database.String(128))
 
     register_error_handlers(app)
 
