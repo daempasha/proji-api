@@ -45,11 +45,8 @@ def create_app():
     @app.route("/api/public")
     def public():
         """No access token required."""
-        response = (
-            "Hello from a public endpoint! You don't need to be"
-            " authenticated to see this."
-        )
-        return jsonify(message=response)
+        response = "Hello from a public endpoint! You don't need to be authenticated to see this."
+        return Response(json_util.dumps({"data": response}))
 
     @app.route("/api/private")
     @require_auth(None)
@@ -59,7 +56,7 @@ def create_app():
             "Hello from a private endpoint! You need to be"
             " authenticated to see this."
         )
-        return jsonify(message=response)
+        return Response(json_util.dumps({"data": response}))
 
     @app.route("/api/private-scoped")
     @require_auth("read:messages")
@@ -70,6 +67,6 @@ def create_app():
             " authenticated and have a scope of read:messages to see"
             " this."
         )
-        return jsonify(message=response)
+        return Response(json_util.dumps({"data": response}))
 
     return app
