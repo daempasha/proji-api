@@ -13,6 +13,8 @@ pytest = "*"
 authlib = "*"
 requests = "*"
 pytest-dotenv = "*"
+flask-pymongo = "*"
+pymongo = "*"
 
 [dev-packages]
 
