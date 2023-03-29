@@ -1,16 +1,16 @@
 """Entry point into the application"""
 
-import os
-from flask import Flask, jsonify
-
+from flask import Flask, Response
 from flask_cors import CORS
-from api.error_handlers.exceptions import ValidationError
+from flask_pymongo import PyMongo
+from bson import json_util
 
 from .auth import require_auth
 from .error_handlers import register_error_handlers
 from .utils import get_config_path
 
 cors = CORS()
+mongo = PyMongo()
 
 
 def create_app():
@@ -20,15 +20,23 @@ def create_app():
     app = Flask(__name__)
 
     config = get_config_path(app)
-
     app.config.from_object(config)
+
     cors.init_app(app, resources={r"/api/*": {"origins": app.config["FRONTEND_HOST"]}})
+    mongo.init_app(app)
+
+    online_users = mongo.db.boards.find()
+    for user in online_users:
+        print(user)
 
     register_error_handlers(app)
 
-    @app.route("/")
-    def hello():
-        return "Hello world"
+    @app.route("/api/boards", methods=["GET"])
+    def get_boards():
+        return Response(
+            json_util.dumps({"data": list(mongo.db.boards.find())}),
+            mimetype="application/json",
+        )
 
     @app.route("/api/test")
     def apitest():
