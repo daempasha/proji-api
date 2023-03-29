@@ -12,6 +12,8 @@ from .utils import get_config_path
 cors = CORS()
 mongo = PyMongo()
 
+from .routes import register_blueprints
+
 
 def create_app():
     """
@@ -30,13 +32,7 @@ def create_app():
         print(user)
 
     register_error_handlers(app)
-
-    @app.route("/api/boards", methods=["GET"])
-    def get_boards():
-        return Response(
-            json_util.dumps({"data": list(mongo.db.boards.find())}),
-            mimetype="application/json",
-        )
+    register_blueprints(app)
 
     @app.route("/api/test")
     def apitest():
