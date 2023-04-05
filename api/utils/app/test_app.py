@@ -1,7 +1,7 @@
 """A list of tests for ./app.py"""
 import os
 from flask import Flask
-from . import get_config_path, mock_path_dict
+from .. import get_config_path, mock_path_dict
 
 
 class TestGetConfigPath:
